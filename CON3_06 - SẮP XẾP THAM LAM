@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int t;
+    cin >> t;;
+    while(t--){
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for(int i = 0; i < n ; i++){
+            cin >> a[i];
+        }
+        vector<int>  b = a;
+        sort(b.begin(), b.end());
+        int flag = 1;
+        if(n % 2 == 0){
+            if(a != b){
+                flag = 0;
+            }
+        }else{
+            int m = n/2;
+            if(a[m] != b[m]){
+                flag = 0;
+            }
+            multiset<int> evenA, oddA, evenB, oddB;
+            for(int i = 0; i < n; i++){
+                if(i == m){
+                    continue;
+                }
+                int d = abs(i - m);
+                if(d % 2 == 0){
+                    evenA.insert(a[i]);
+                    evenB.insert(b[i]);
+                }else{
+                    oddA.insert(a[i]);
+                    oddB.insert(b[i]);
+                }
+            }
+            if(evenA != evenB || oddA != oddB){
+                flag = 0;
+            }
+        }
+        cout <<(flag ? "Yes" :"No")<<endl;
+    }
+}
