@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        int n;
+        cin >> n;
+        int flag = 0;
+        for(int y = n/7 ; y >= 0; y--){
+            int tmp = n - 7*y;
+            if(tmp % 4 == 0){
+                for(int k = 0; k < tmp/4; k++){
+                    cout <<"4";
+                }
+                for(int h = 0; h < y; h++){
+                    cout <<"7";
+                }
+                cout <<endl;
+                flag = 1;
+                break;
+            }
+        }
+        if(flag ==0 ) cout << -1 <<endl;
+        end:;
+    }
+}
