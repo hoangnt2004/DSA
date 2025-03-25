@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int n;
+char str[11];
+void generate(int i){
+    if(i == n){
+        str[n] = '\0';
+        cout << str <<" ";
+        return ;
+    }
+    str[i] = 'A';
+    generate(i+1);
+
+    str[i] = 'B';
+    generate(i+1);
+}
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        cin >> n;
+        generate(0);
+        cout << endl;
+    }
+}
