@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+string solve(int n){
+    queue<string> q;
+    unordered_set<int> visited;
+    q.push("9");
+    while(!q.empty()){
+        string num = q.front();
+        q.pop();
+
+        int remainder = 0;
+        for(char c : num){
+            remainder = (remainder * 10 + (c - '0')) % n;
+        }
+
+        if(remainder == 0){
+            return num;
+        }
+
+        if(!visited.count(remainder)){
+            visited.insert(remainder);
+            q.push(num +'0');
+            q.push(num+'9');
+        }
+    }
+    return "-1";
+}
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        int n;
+        cin >> n;
+        cout << solve(n) <<endl;
+    }
+}
