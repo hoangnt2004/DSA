@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool next_combination(vector<int>& a, int n, int k){
+    int i = k - 1;
+    while(i >= 0 && a[i] == n -k +i + 1){
+        i--;
+    }
+    if(i < 0){
+        return false;
+    }
+    a[i]++;
+    for(int j = i+1; j < k; j++){
+        a[j] = a[j - 1] + 1;
+    }
+    return true;
+}
+int count_rest(const vector<int>& current, const vector<int>& next){
+    int cnt = 0;
+    for(int x : current){
+        if(find(next.begin(), next.end(), x) == next.end()){
+            cnt++;
+        }
+    }
+    return cnt;
+}
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        int n, k;
+        cin >> n >> k;
+        vector<int> cur(k);
+        for(int i = 0; i < k; i++){
+            cin >> cur[i];
+        }
+        vector<int> next = cur;
+        if(!next_combination(next, n, k)){
+            cout << k <<endl;
+        }else{
+            cout << count_rest(cur, next) <<endl;
+        }
+    }
+}
