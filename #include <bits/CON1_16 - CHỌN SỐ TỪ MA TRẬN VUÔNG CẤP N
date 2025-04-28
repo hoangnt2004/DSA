@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+int N,K;
+int C[11][11];
+bool used[11];
+vector<int> path;
+vector<vector<int>> solutions;
+void bactrack(int row, int sum){
+    if(row > N){
+        if(sum == K){
+            solutions.push_back(path);
+        }
+        return;
+    }
+    for(int col = 1; col <=N; col++){
+        if(!used[col]){
+            used[col] = true;
+            path.push_back(col);
+            bactrack(row + 1, sum + C[row][col]);
+            path.pop_back();
+            used[col] = false;
+        }
+    }
+}
+int main(){
+    cin >> N >> K;
+    for(int i = 1; i <= N; i++){
+        for(int j = 1; j <= N; j++){
+            cin >> C[i][j];
+        }
+    }
+    bactrack(1, 0);
+    cout << solutions.size() << endl;
+    for( auto sol : solutions){
+        for(int col:sol){
+            cout << col <<" ";
+        }
+        cout <<endl;
+    }
+    return 0;
+}
