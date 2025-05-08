@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void Back_Track(int n, int max_val, vector<int>& cur)
+{
+    if(n == 0){
+        cout <<"(";
+        for(int i = 0; i < cur.size(); i++){
+            cout<<cur[i] << (i + 1 < cur.size() ? " " : "");
+        }
+        cout <<") ";
+        return;
+    }
+    for(int i = min(n, max_val); i >= 1; i--){
+        cur.push_back(i);
+        Back_Track(n - i, i, cur);
+        cur.pop_back();
+    }
+}
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        int n;
+        cin >> n;
+        vector<int> cur;
+        Back_Track(n, n, cur);
+        cout <<endl;
+    }
+    return 0;
+}
