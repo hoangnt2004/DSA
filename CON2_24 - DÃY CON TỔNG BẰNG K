@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int N, K;
+vector<int> A;
+vector<vector<int>> res;
+vector<int> current;
+
+void Back_Track(int index, int sum){
+    if(sum == K){
+        res.push_back(current);
+        return;
+    }
+    if(sum > K) return ;
+    for(int i = index; i < N; i++){
+        current.push_back(A[i]);
+        Back_Track(i + 1, sum + A[i]);
+        current.pop_back();
+    }
+}
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        cin >> N >> K;
+        A.resize(N);
+        for(int i = 0; i < N; i++){
+            cin >> A[i];
+        }
+        sort(A.begin(), A.end());
+        res.clear();
+        current.clear();
+        Back_Track(0,0);
+        if(res.empty()){
+            cout <<-1 <<endl;
+        }else{
+            for(int j = 0; j < res.size(); j++){
+                cout <<'[';
+                for(int k = 0; k < res[j].size(); k++){
+                    cout << res[j][k];
+                    if(k+1 < res[j].size()){
+                        cout <<' ';
+                    }
+                }
+                cout << ']';
+                if(j + 1 < res.size()){
+                    cout <<' ';
+                }
+            }
+            cout << endl;
+        }
+    }
+    return 0;
+}
