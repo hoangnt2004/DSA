@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void generate(int n, int k, string current, int ones){
+    if(current.length() == n){
+        if(ones == k){
+            cout << current <<endl;
+        }
+        return ;
+    }
+    if(n - current.length() > k - ones){
+        generate(n, k, current + '0', ones);
+    }
+    if(ones < k){
+        generate(n, k, current + '1', ones + 1);
+    }
+}
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        int n, k;
+        cin >> n >> k;
+        generate(n, k, "", 0);
+    }
+    return 0;
+}
