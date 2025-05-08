@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+char ops[] = {'+', '-', '*'};
+int Calc(int a, int b, char op){
+    if(op == '+') return a + b;
+    if(op == '-') return a - b;
+    return a*b;
+}
+bool check(vector<int> nums){
+    sort(nums.begin(), nums.end());
+    do{
+        for(char o1 : ops)
+        for(char o2 : ops)
+        for(char o3 : ops)
+        for(char o4 : ops){
+            int res = Calc(Calc(Calc(Calc(nums[0], nums[1], o1), nums[2], o2), nums[3], o3), nums[4], o4);
+            if(res == 23) return true;
+        }
+    }while(next_permutation(nums.begin(), nums.end()));
+    return false;
+}
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        vector<int> nums(5);
+        for(int i = 0; i < 5; i++){
+            cin >> nums[i];
+        }
+        if(check(nums)){
+            cout << "YES" <<endl;
+        }else{
+            cout <<"NO" <<endl;
+        }
+    }
+    return 0;
+}
