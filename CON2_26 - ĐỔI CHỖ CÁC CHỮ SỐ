@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string maxStr;
+void Find_Max(string s, int k, int idx){
+    if(k == 0){
+        return;
+    }
+    char maxChar = *max_element(s.begin() + idx, s.end());
+    if(maxChar != s[idx]){
+        k--;
+    }
+
+    for(int j = s.length() - 1; j >= idx; j--){
+        if(s[j] == maxChar){
+            swap(s[idx], s[j]);
+            if(s > maxStr){
+                maxStr = s;
+            }
+            Find_Max(s, k, idx + 1);
+        }
+    }
+}
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        int k;
+        string s;
+        cin >> k >> s;
+        maxStr = s;
+        Find_Max(s, k, 0);
+        cout << maxStr << endl;
+    }
+    return 0;
+}
