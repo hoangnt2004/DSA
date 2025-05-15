@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+int N, M, best;
+vector<vector<pair<int, int>>> adj;
+
+void dfs(int u, int used_mask, int len){
+    best = max(best, len);
+
+    for(auto[v, ei] : adj[u]){
+        if(!(used_mask & (1 << ei))){
+            dfs(v, used_mask | (1 << ei), len + 1);
+        }
+    }
+}
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        cin >> N >> M;
+        adj.assign(N, {});
+        for(int i = 0, u, v; i < M; i++){
+            cin >> u >> v;
+            adj[u].emplace_back(v, i);
+            adj[v].emplace_back(u, i);
+        }
+        best = 0;
+        for(int i = 0; i < N; i++){
+            dfs(i , 0, 0);
+        }
+        cout << best << endl;
+    }
+    return 0;
+}
