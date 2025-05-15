@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int Min_Step(int S, int T){
+    vector<bool> visited(20000, false);
+    queue<pair<int, int>> q;
+    q.push({S, 0});
+    visited[S] = true;
+
+    while(!q.empty()){
+        auto [cur, steps] = q.front();
+        q.pop();
+        if(cur == T){
+            return steps;
+        }
+        if(cur*2 < 20000 && !visited[cur*2]){
+            visited[cur*2] = true;
+            q.push({cur*2, steps+1});
+        }
+
+        if(cur - 1 > 0&& !visited[cur-1]){
+            visited[cur-1] = true;
+            q.push({cur-1, steps + 1});
+        }
+    }
+    return -1;
+}
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        int S, T;
+        cin >> S >> T;
+        cout << Min_Step(S,T) <<endl;
+    }
+    return 0;
+}
