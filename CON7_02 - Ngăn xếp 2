@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int t;
+    cin >> t;
+    stack<int> st;
+    string cmd;
+    int x;
+    while(t--){
+        cin >> cmd;
+        if(cmd == "PUSH"){
+            cin >> x;
+            st.push(x);
+        }else if(cmd == "POP"){
+            if(!st.empty()){
+                st.pop();
+            }
+        }else if(cmd == "PRINT"){
+            if(!st.empty()){
+                cout << st.top() <<endl;
+            }else{
+                cout << "NONE" <<endl;
+            }
+        }
+    }
+}
