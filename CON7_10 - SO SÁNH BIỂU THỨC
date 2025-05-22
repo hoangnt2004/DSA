@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string solve(string& s){
+    stack<bool> st;
+    st.push(true);
+    string res ;
+    bool sign = true;
+
+    for(int i = 0 ; i < s.size(); i++){
+        char c = s[i];
+        if(c == '+'){
+            sign = true;
+        }else if(c == '-'){
+            sign = false;
+        }else if(c == '('){
+            bool top = st.top();
+            st.push(top^(!sign));
+            sign = true;
+        }else if(islower(c)){
+            bool cur_sign = (st.top()^(!sign));
+            if(!res.empty()){
+                res += cur_sign ? '+' : '-';
+            }else if(!cur_sign){
+                res += '-';
+            }
+            res += c;
+            sign = true;
+        }
+    }
+
+    return res;
+}
+int main(){
+    int t;
+    cin >> t;
+    cin.ignore();
+    while(t--){
+        string p1, p2;
+        getline(cin , p1);
+        getline(cin, p2);
+        
+        string s1 = solve(p1);
+        string s2 = solve(p2);
+        if(s1 == s2){
+            cout << "YES" <<endl;
+        }else{
+            cout <<"NO" <<endl;
+        }
+    }
+    return 0;
+}
