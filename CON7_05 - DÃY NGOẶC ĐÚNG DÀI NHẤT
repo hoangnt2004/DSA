@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+int solve(string& s){
+    stack<int> st;
+    st.push(-1);
+    int max_size = 0;
+    for(int i =0 ; i < s.size(); i++){
+        if(s[i] == '('){
+            st.push(i);
+        }else{
+            st.pop();
+            if(st.empty()){
+                st.push(i);
+            }else{
+                max_size = max(max_size, i - st.top());
+            }
+        }
+    }
+    return max_size;
+}
+int main(){
+    int t;
+    cin >> t;
+    vector<string>  test(t);
+    for(int i = 0; i < t; i++){
+        cin >> test[i];
+    }
+    for(int i = 0; i < t; i++){
+        cout << solve(test[i]) <<endl;
+    }
+    return 0;
+}
