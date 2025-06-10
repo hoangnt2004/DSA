@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main(){
+	stack<int> st;
+	string cmd;
+	while(cin >> cmd){
+		if(cmd == "push"){
+			int x;
+			cin >> x;
+			st.push(x);
+		}else if(cmd == "pop"){
+			if(!st.empty()){
+				st.pop();
+			}
+		}else if(cmd == "show"){
+			if(st.empty()){
+				cout <<"empty"<<endl;
+			}else{
+				vector<int> tmp;
+				stack<int> copy = st;
+				while(!copy.empty()){
+					tmp.push_back(copy.top());
+					copy.pop();
+				}
+				for(int i = tmp.size() - 1; i >= 0; i--){
+					cout << tmp[i] <<" ";
+				}
+				cout <<endl;
+			}
+		}
+	}
+	return 0;
+}
