@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+ll solve(vector<ll>& H, int n){
+	vector<int> left(n), right(n);
+	stack<int> st;
+	
+	for(int i = 0; i < n ; i++){
+		while(!st.empty() && H[st.top()]  >= H[i]){
+			st.pop();
+		}
+		left[i] = (st.empty() ? -1 : st.top());
+		st.push(i);
+	}
+	
+	while(!st.empty()){
+		st.pop();
+	}
+	
+	for(int i = n - 1; i >= 0;i--){
+		while(!st.empty() && H[st.top()] >= H[i]){
+			st.pop();
+		}
+		right[i] = (st.empty() ? n : st.top());
+		st.push(i);
+	}
+	
+	ll max_area = 0;
+	for(int i = 0; i < n; i++){
+		ll width = right[i] - left[i] - 1;
+		ll area = H[i]*width;
+		max_area = max(max_area, area);
+	}
+	return max_area;
+}
+
+int main(){
+	int t;
+	cin >> t;
+	while(t--){
+		int n;
+		cin >> n;
+		vector<ll> H(n);
+		for(int i = 0; i < n; i++){
+			cin >> H[i];
+		}
+		cout << solve(H, n) <<endl;
+	}
+	return 0;
+}
