@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string solve(string s){
+    stack<char> signs;
+    signs.push('+'); 
+    s = '+' + s;      
+
+    string res = "";
+    char current_sign = '+';
+
+    for (int i = 0; i < s.size(); ++i) {
+        char ch = s[i];
+
+        if (ch == '+' || ch == '-') {
+            current_sign = ch;
+        } else if (ch == '(') {
+            if (current_sign == '+')
+                signs.push(signs.top());
+            else
+                signs.push(signs.top() == '+' ? '-' : '+');
+            current_sign = '+'; 
+        } else if (ch == ')') {
+            signs.pop();
+        } else if (isalpha(ch)) {
+            char sign = (current_sign == '+' ? signs.top() : (signs.top() == '+' ? '-' : '+'));
+            if (!res.empty()) res += sign;
+            else if (sign == '-') res += sign;
+            res += ch;
+            current_sign = '+';
+        }
+    }
+
+    return res;
+}
+
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+        string s;
+        cin >> s;
+        cout << solve(s) << endl;
+    }
+}
