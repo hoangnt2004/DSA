@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string s;
+vector<pair<int, int>> p;     // Các cặp ngoặc
+set<string> ans;              // Kết quả các biểu thức
+vector<bool> rm;              // Cặp ngoặc bị xóa
+
+void gen(int i) {
+    if (i == p.size()) {
+        string t;
+        for (int j = 0; j < s.size(); ++j) {
+            bool skip = false;
+            for (int k = 0; k < p.size(); ++k) {
+                if (rm[k] && (j == p[k].first || j == p[k].second)) {
+                    skip = true;
+                    break;
+                }
+            }
+            if (!skip) t += s[j];
+        }
+        if (t != s) ans.insert(t);
+        return;
+    }
+
+    gen(i + 1);         // Không xóa
+    rm[i] = true;       // Xóa cặp i
+    gen(i + 1);
+    rm[i] = false;      // Backtrack
+}
+
+int main() {
+    cin >> s;
+    stack<int> stk;
+    for (int i = 0; i < s.size(); ++i) {
+        if (s[i] == '(') stk.push(i);
+        else if (s[i] == ')') {
+            int j = stk.top(); stk.pop();
+            p.push_back({j, i});
+        }
+    }
+
+    rm.resize(p.size(), false);
+    gen(0);
+
+    vector<string> res(ans.begin(), ans.end());
+    sort(res.begin(), res.end());
+    for (auto &x : res) cout << x << '\n';
+    return 0;
+}
